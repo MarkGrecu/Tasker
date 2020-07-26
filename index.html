@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <div class="top_navbar">
+      <div class="hamburger">
+        <div class="one"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+      </div>
+      <div class="top_menu">
+        <div class="logo">Tasker</div>
+        <ul>
+          <li class="logged-out" style="display: none;">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-login">Login</a>
+          </li>
+          <li class="logged-out" style="display: none;">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-signup">Sign up</a>
+          </li>
+
+          <li class="logged-in-manager" style="display: none;">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-employee">Add employee</a>
+          </li>
+          <li class="logged-in-manager" style="display: none;">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-task">Add task</a>
+          </li>
+
+          <li class="logged-in" style="display: none;">
+            <a href="#" class="grey-text" id="logout">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Sign up window -->
+    <div id="modal-signup" class="modal">
+      <div class="modal-content">
+        <h4>Sign up</h4><br />
+        <form id="signup-form">
+          <div class="input-field">
+            <input type="text" id="signup-nume" required />
+            <label for="signup-nume">Nume</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="signup-prenume" required />
+            <label for="signup-prenume">Prenume</label>
+          </div>
+          <div class="input-field">
+            <input type="email" id="signup-email" required />
+            <label for="signup-email">Email address</label>
+          </div>
+          <div class="input-field">
+            <input type="password" id="signup-password" required />
+            <label for="signup-password">Choose password</label>
+          </div>
+          <button class="btn teal darken-2 z-depth-0">Sign up</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Log in window -->
+    <div id="modal-login" class="modal" >
+      <div class="modal-content">
+        <h4>Login</h4><br />
+        <form id="login-form">
+          <div class="input-field">
+            <input type="email" id="login-email" required />
+            <label for="login-email">Email address</label>
+          </div>
+          <div class="input-field">
+            <input type="password" id="login-password" required />
+            <label for="login-password">Your password</label>
+          </div>
+          <button  class="btn teal darken-2 z-depth-0" >Login</button>
+          
+        </form>
+        <div> <p style=" color: white;">''    </p></div>
+        
+        
+        <div class="modal-body">
+          
+          <a href="#" class=" modal-trigger btn teal darken-2 z-depth-0" data-target="changepass">Reset password</a>
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- New task window -->
+    <div id="modal-task" class="modal">
+      <div class="modal-content">
+        <h4>Add Task</h4><br />
+        <form id="task-form">
+          <div class="input-field">
+            <input type="text" id="id-task" required />
+            <label for="id-task">ID task</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="nume-task" required />
+            <label for="nume-task">Expected days to complete</label>
+          </div>
+          <div class="input-field">
+            <input type="date" id="deadline-task" required />
+            <label for="deadline-task">Deadline</label>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <div class="input-group">
+
+
+                  <div class="select-box">
+                    <div class="options-container">
+
+
+                      <div class="option">
+                        <input type="radio" class="radio" id="java" name="category" />
+                        <label for="skill">Java</label>
+                      </div>
+
+                      <div class="option">
+                        <input type="radio" class="radio" id="python" name="category" />
+                        <label for="skill">Python</label>
+                      </div>
+
+                      <div class="option">
+                        <input type="radio" class="radio" id="c++" name="category" />
+                        <label for="skill">C++</label>
+                      </div>
+
+                      <div class="option">
+                        <input type="radio" class="radio" id="Javascript" name="category" />
+                        <label for="skill">Javascript</label>
+                      </div>
+
+                    </div>
+
+                    <div class="selected">
+                      Add required skills
+                    </div>
+                  </div>
+
+
+                  <label for="add-task">Dificultate (1 - 3)</label>
+                  <input type="number" class="form-control" id="candidate1" required>
+                  <div class="input-group-append">
+                    <button onclick="addItem()" class="btn btn-add" type="button">+</button>
+                    <button onclick="clear2()" class="btn btn-add" type="button">clear</button>
+                  </div>
+                </div>
+                <ul id="dynamic-list">
+                </ul>
+              </div>
+            </div>
+          </div>
+          <button class="btn teal darken-2 z-depth-0" onclick="addTask()">Add</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- New employee window -->
+    <div id="modal-employee" class="modal">
+      <div class="modal-content">
+        <h4>New Employee</h4><br />
+        <form id="employee-form">
+          <div class="input-field">
+            <input type="Text" id="nume-employee" required />
+            <label for="nume-employee">Nume</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="prenume-employee" required />
+            <label for="prenume-employee">Prenume</label>
+          </div>
+          <div class="input-field">
+            <input type="email" id="email-employee" required />
+            <label for="email-employee">Email address</label>
+          </div>
+          <div class="input-field">
+            <input type="password" id="password-employee" required />
+            <label for="password-employee">Password</label>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <div class="input-group1">
+                  <label for="add-employee">Skill</label>
+
+
+                  <div class="select-box2">
+                    <div class="options-container2">
+
+
+                      <div class="option2">
+                        <input type="radio" class="radio" id="java" name="category" />
+                        <label for="skill">Java</label>
+                      </div>
+
+                      <div class="option2">
+                        <input type="radio" class="radio" id="python" name="category" />
+                        <label for="skill">Python</label>
+                      </div>
+
+                      <div class="option2">
+                        <input type="radio" class="radio" id="c++" name="category" />
+                        <label for="skill">C++</label>
+                      </div>
+
+                      <div class="option2">
+                        <input type="radio" class="radio" id="Javascript" name="category" />
+                        <label for="skill">Javascript</label>
+                      </div>
+
+                    </div>
+
+                    <div class="selected2">
+                      Add employee skills
+                    </div>
+                  </div>
+
+
+
+                  <label for="add-employee">Nivel (1 - 3)</label>
+                  <input type="number" class="form-control1" id="candidate3" required>
+                  <div class="input-group1-append">
+                    <button onclick="addItem1()" class="btn btn-add1" type="button">+</button>
+                    <button onclick="clear1()" class="btn btn-add1" type="button">clear</button>
+                  </div>
+                </div>
+                <ul id="dynamic-list1">
+                </ul>
+              </div>
+            </div>
+          </div>
+          <button class="btn teal darken-2 z-depth-0" onclick="addEmployee()" type="button">Add</button>
+        </form>
+      </div>
+    </div>
+
+
+    <div class="sidebar">
+      <ul>
+        <li class="logged-out" style="display: none;">
+          <a href="#" class="active">
+            <span class="icon"><i class="fas fas fa-info-circle"></i></span>
+            <span class="title">About</span></a></li>
+
+        <li class="logged-in-manager" style="display: none;">
+          <a href="#" class="active" id="ManagerMenu1">
+            <span class="icon"><i class="far fa-address-card"></i></span>
+            <span class="title">Account</span>
+          </a></li>
+
+        <li class="logged-in-manager" style="display: none;">
+          <a href="#" class="" id="ManagerMenu2">
+            <span class="icon"><i class="fas fa-users"></i></span>
+            <span class="title">Employees</span>
+          </a></li>
+
+        <li class="logged-in-manager" style="display: none;">
+          <a href="#" class="" id="ManagerMenu3">
+            <span class="icon"><i class="fas fa-tasks"></i></span>
+            <span class="title">Tasks</span>
+          </a></li>
+
+        <li class="logged-in-emp" style="display: none;">
+          <a href="#" class="active" id="EmpMenu1">
+            <span class="icon"><i class="far fa-address-card"></i></span>
+            <span class="title">Account</span>
+          </a></li>
+
+        <li class="logged-in-emp" style="display: none;">
+          <a href="#" class="" id="EmpMenu2">
+            <span class="icon"><i class="fas fa-tasks"></i></span>
+            <span class="title">Tasks</span>
+          </a></li>
+
+
+
+
+      </ul>
+    </div>
+
+    <!-- Side menu info  -->
+    <div class="main_container" id="AboutPage" style="display: block;">
+      <li class="logged-out" style="display: none;">
+        <div class="item">
+          Esti in cautare de o aplicatie care sa iti usureze munca in calitate de manager?<br>
+          Tasker este o aplicatie web ce iti ofera posibilitatea sa distribui automat taskurile angajatilor tai.<br>
+          Trebuie doar sa introduci toti angajatii, skilurile acestora si taskurile, iar noi le vom distribui automat la cei mai potriviti angajati.
+        </div>
+        <!-- <div class="item">
+              <img src="1.png" width="550" height="350"   alt="1">
+              <img src="2.png" width="550" height="350" alt="2">
+              <img src="3.png" width="550" height="350" alt="3">
+              <img src="4.png" width="550" height="350" alt="4">
+          </div> -->
+
+          <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+          <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+          <div class="w3-content w3-display-container">
+            <img class="mySlides" src="1.png" style="width: 100%;">
+            <img class="mySlides" src="2.png" style="width: 100%;">
+            <img class="mySlides" src="3.png" style="width: 100%;">
+            <img class="mySlides" src="4.png" style="width: 100%;">
+            <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+            <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+          </div>
+      </li>
+    </div>
+    <style>
+      .mySlides {display:none; z-index: 10;}
+
+      </style>
+
+
+    <div class="main_container" id="AccountPage" style="display: block;">
+      <li class="logged-in-manager" style="display: none;">
+
+        <div class="account-info item" id="info-emp">
+
+          
+        </div>
+        <li class="logged-in-manager" style="display: none;">
+          <a href="#" class="btn btn-info btn-lg modal-trigger" data-target="updateemail">Reset email</a>
+        </li>
+        <li style=" color:transparent;">'</li>
+      <li class="logged-in-manager" style="display: none;">
+        <a href="#" class="btn btn-info btn-lg modal-trigger" data-target="changepass">Reset password</a>
+      </li>
+
+
+
+
+      </li>
+    </div>
+
+
+    <!-- Employee -->
+    <div class="main_container" id="EmployeePage" style="display: none;">
+      <li class="logged-in-manager" style="display: none;">
+        <div class="item2">
+
+          <table class="table table-striped" id="ex-table">
+            <thead class="thead-inverse">
+              <tr>
+                <th>Nume</th>
+                <th>Prenume</th>
+                <th>Skills</th>
+                <th>Tools</th>
+              </tr>
+            </thead>
+            <tbody id="tbody">
+
+              <!-- <tr id="tr">
+            <td id="Name"></td>
+            <td id="Surname"></td>
+            <td id="Skills"></td> -->
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </li>
+    </div>
+    <!-- Task -->
+    <div class="main_container" id="TasksPage" style="display: none;">
+      <li class="logged-in-manager" style="display: none;">
+        <div class="item2">
+          <table class="table table-striped" id="ex-table1">
+            <thead class="thead-inverse">
+              <tr>
+                <th>ID</th>
+                <th>Expected duration ( days )</th>
+                <th>Skills</th>
+                <th>Deadline</th>
+                <th>Status</th>
+                <th>Tools</th>
+
+
+              </tr>
+            </thead>
+            <tbody id="tbody1">
+
+              <!-- <tr id="tr">
+              <td id="Name"></td>
+              <td id="Surname"></td>
+              <td id="Skills"></td> -->
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </li>
+    </div>
+
+    <!-- Emp account -->
+    <div class="main_container" id="emp-account" style="display: none;">
+      <li class="logged-in-emp" style="display: none;">
+        <div class="account-info1 item">
+          
+        </div>
+        
+        <li class="logged-in-emp" style="display: none;">
+          <a href="#" class="btn btn-info btn-lg modal-trigger" data-target="updateemail">Reset email</a>
+        </li>
+        <li style=" color:transparent;">'</li>
+       <li class="logged-in-emp" style="display: none;">
+        <a href="#" class="btn btn-info btn-lg modal-trigger" data-target="changepass">Reset password</a>
+        </li>
+    
+        </li>
+      
+
+    </div>
+    <!-- Emp tasks -->
+    <div class="main_container" id="emp-task" style="display: none;">
+      <li class="logged-in-emp" style="display: none;">
+        <div class="item2">
+          <table class="table table-striped" id="ex-table1">
+            <thead class="thead-inverse">
+              <tr>
+                <th>ID</th>
+                <th>Expected duration ( days )</th>
+                <th>Skills</th>
+                <th>Deadline</th>
+                <th>Status</th>
+                <th>Tools</th>
+
+
+              </tr>
+            </thead>
+            <tbody id="tbody2">
+
+              <!-- <tr id="tr">
+              <td id="Name"></td>
+              <td id="Surname"></td>
+              <td id="Skills"></td> -->
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </li>
+    </div>
+
+
+    <!-- Modal update email adress -->
+
+    <div id="updateemail" class="modal" >
+      <div class="modal-content">
+        <h4>Change your email adress</h4><br />
+        <form id="login-form">
+        <div class="input-field">
+          <input type="email" id="resetEmail10" required />
+          <label for="resetEmail10">Old email address</label>
+        </div>
+        <div class="input-field">
+          <input type="email" id="resetEmail11" required />
+          <label for="resetEmail11">New email address</label>
+        </div>
+        <button id= "resetEmail" type="button" class="modal-trigger btn teal darken-2 z-depth-0">Change email adress</button>
+      </form>
+      </div>
+      
+
+    </div>
+
+
+    <!-- Modal Reset password -->
+
+    <div id="changepass" class="modal" >
+      <div class="modal-content">
+        <h4>Reset your password</h4><br />
+        <form id="login-form">
+        <div class="input-field">
+          <input type="email" id="reset-email" required />
+          <label for="reset-email">Email address</label>
+        </div>
+        <button id= "resetPassword" type="button" class="modal-trigger btn teal darken-2 z-depth-0">Reset password</button>
+      </form>
+      </div>
+      
+
+    </div>
+
+
+
+
+
+    <!-- Edit modal manager page-->
+    <div id="modal-editEmp" class="modal">
+      <div class="modal-content">
+        <h4>Edit profile</h4><br />
+        <form id="edit-formEmp">
+          <div class="input-field">
+            <input type="Text" id="nume-editEmp" required />
+            <label for="nume-editEmp">Nume</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="prenume-editEmp" required />
+            <label for="prenume-editEmp">Prenume</label>
+          </div>
+          <div class="input-field">
+            <input type="email" id="email-editEmp" required />
+            <label for="email-editEmp">Email address</label>
+          </div>
+          <div class="input-field">
+            <input type="password" id="password-editEmp" required />
+            <label for="password-editEmp">Password</label>
+          </div>
+
+          <button class="btn teal darken-2 z-depth-0" onclick="modifyEmployee()" type="button">Edit profile</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyBus9J8j76GWduCkVO5yTp8OPsQ-WgdJ48",
+      authDomain: "task-manager-7a4ee.firebaseapp.com",
+      databaseURL: "https://task-manager-7a4ee.firebaseio.com",
+      projectId: "task-manager-7a4ee",
+      storageBucket: "task-manager-7a4ee.appspot.com",
+      messagingSenderId: "184613985124",
+      appId: "1:184613985124:web:86918e83271fd7f42bb871",
+      measurementId: "G-J5W9WBY2Q8"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    db.settings({ timestampsInSnapshots: true });
+
+    firebase.analytics();
+  </script>
+  <script src="scripts/index.js"></script>
+  <script src="scripts/account.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>
